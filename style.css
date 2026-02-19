@@ -71,16 +71,23 @@ html, body {
     margin-bottom: 10px;
 }
 
-/* ---------------- STARBOY CROSS GAME ---------------- */
 /* ---------------- NEON PUZZLE ---------------- */
-
 .neon-game{
     margin-top: 30px;
 }
 
 .neon-hint{
-    font-size: 1.3rem;
-    margin-bottom: 20px;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    opacity: 0.95;
+}
+
+.neon-progress{
+    font-size: 1.2rem;
+    letter-spacing: 10px;
+    margin-bottom: 18px;
+    opacity: 0.9;
+    text-shadow: 0 0 10px rgba(255,255,255,0.15);
 }
 
 .neon-container{
@@ -88,53 +95,57 @@ html, body {
     justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
-    transition: transform 0.6s ease, background 1s ease;
+    transition: filter 0.6s ease;
+    padding: 10px;
+    border-radius: 14px;
 }
 
 .neon-bar{
-    width: 60px;
-    height: 110px;
-    background: rgba(255,0,0,0.15);
-    border: 2px solid red;
-    color: red;
+    width: 62px;
+    height: 112px;
+    background: rgba(255,0,0,0.12);
+    border: 2px solid rgba(255, 40, 40, 0.9);
+    color: rgb(255, 40, 40);
     font-size: 2rem;
-    font-weight: bold;
+    font-weight: 800;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     cursor:pointer;
-    border-radius: 10px;
+    border-radius: 12px;
 
-    text-shadow:
-        0 0 5px red,
-        0 0 10px red;
+    text-shadow: 0 0 6px rgba(255,40,40,0.85), 0 0 18px rgba(255,40,40,0.55);
+    box-shadow: 0 0 18px rgba(255,40,40,0.10);
+    transition: 0.25s ease;
+}
 
-    transition: 0.3s ease;
+.neon-bar:disabled{
+    cursor: default;
+    opacity: 0.95;
 }
 
 .neon-bar.flicker{
-    opacity: 0.3;
+    opacity: 0.35;
 }
 
 .neon-bar.correct{
-    background: rgba(0, 100, 255, 0.25);
-    border-color: #0066ff;
-    color: #0066ff;
-    text-shadow:
-        0 0 6px #0066ff,
-        0 0 18px #0066ff;
+    background: rgba(0, 110, 255, 0.22);
+    border-color: rgba(0,110,255,0.95);
+    color: rgb(0,110,255);
+    text-shadow: 0 0 8px rgba(0,110,255,0.9), 0 0 26px rgba(0,110,255,0.6);
 }
 
-.neon-bar.final-glow{
-    background: rgba(0, 100, 255, 0.4);
-    color: #ff0000;
-    text-shadow:
-        0 0 10px red,
-        0 0 30px red,
-        0 0 60px #0066ff;
+.neon-container.good{
+    filter: drop-shadow(0 0 16px rgba(0,110,255,0.25));
 }
 
-/* Shake on wrong */
+/* Wrong feedback */
+.neon-container.wrong{
+    filter: drop-shadow(0 0 18px rgba(255,0,0,0.25));
+}
+
 .neon-container.shake{
     animation: shake 0.3s linear;
 }
@@ -147,126 +158,44 @@ html, body {
     100%{transform:translateX(0)}
 }
 
-/* Zoom to fill screen */
-.neon-container.zoom-fill{
-    transform: scale(12);
-    background: radial-gradient(circle, red 0%, #001a66 60%, black 100%);
-    z-index: 9999;
+/* WIN: STARBOY turns GOLD */
+.neon-bar.final-gold{
+    background: rgba(240,195,0,0.18);
+    border-color: rgba(240,195,0,0.95);
+    color: #f0c300;
+    text-shadow:
+        0 0 10px rgba(240,195,0,0.95),
+        0 0 30px rgba(240,195,0,0.55);
+    box-shadow: 0 0 24px rgba(240,195,0,0.18);
 }
 
-
-/* ---------------- SUBTLE BASS SHAKE ---------------- */
-.cross-container.bass-shake{
-    animation: bassShake 120ms linear;
-}
-
-@keyframes bassShake{
-    0%   { transform: translateX(0) translateY(0); }
-    20%  { transform: translateX(-1px) translateY(1px); }
-    40%  { transform: translateX(1px) translateY(-1px); }
-    60%  { transform: translateX(-1px) translateY(-1px); }
-    80%  { transform: translateX(1px) translateY(1px); }
-    100% { transform: translateX(0) translateY(0); }
-}
-
-/* Sparks */
+/* ---------------- SPARK RAIN (Gold / Blue / Red) ---------------- */
 .spark{
     position: fixed;
     border-radius: 50%;
     pointer-events: none;
     z-index: 99999;
-
     opacity: 0.98;
-    animation: sparkMove 980ms cubic-bezier(.12,.72,.2,1) forwards;
-    box-shadow: 0 0 14px rgba(255,255,255,0.18);
 }
 
-.spark[data-c="navy"]{
-    background: #081a5a;
-    box-shadow: 0 0 22px rgba(8, 26, 90, 0.95);
-}
 .spark[data-c="gold"]{
     background: #f0c300;
-    box-shadow: 0 0 22px rgba(240, 195, 0, 0.95);
+    box-shadow: 0 0 22px rgba(240,195,0,0.95);
 }
 
-@keyframes sparkMove{
-    70%{ opacity: 1; }
-    to{
-        transform: translate(var(--x), var(--y)) scale(0.85);
-        opacity: 0;
-    }
+.spark[data-c="blue"]{
+    background: #005bff;
+    box-shadow: 0 0 22px rgba(0,91,255,0.95);
 }
 
-/* Beat-synced raining sparks */
+.spark[data-c="red"]{
+    background: #ff2020;
+    box-shadow: 0 0 22px rgba(255,32,32,0.95);
+}
+
 @keyframes rainFall{
     to{
         transform: translateY(110vh);
-        opacity: 0;
-    }
-}
-
-/* ---------------- IMAGE DANCER ---------------- */
-.weeknd-dancer{
-    position: absolute;
-    bottom: 10px;
-    left: -220px; /* start off screen */
-    width: 180px;
-    opacity: 0;
-    z-index: 60;
-    pointer-events: none;
-}
-
-.weeknd-dancer img{
-    width: 100%;
-    display: block;
-    filter: drop-shadow(0 18px 28px rgba(0,0,0,0.5));
-}
-
-/* Walk in */
-.weeknd-dancer.walk-in{
-    opacity: 1;
-    animation: walkIn 1.2s ease-out forwards;
-}
-
-@keyframes walkIn{
-    to{
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
-/* Grab pose */
-.weeknd-dancer.grab{
-    animation: grabPose 400ms ease-out forwards;
-}
-
-@keyframes grabPose{
-    0%{ transform: translateX(-50%) scale(1); }
-    100%{ transform: translateX(-50%) scale(1.05); }
-}
-
-/* 2-Step Dance */
-.weeknd-dancer.dance{
-    animation: twoStep 0.6s ease-in-out infinite;
-}
-
-@keyframes twoStep{
-    0%   { transform: translateX(-50%) rotate(-3deg) translateY(0); }
-    25%  { transform: translateX(-45%) rotate(3deg) translateY(-4px); }
-    50%  { transform: translateX(-50%) rotate(-3deg); }
-    75%  { transform: translateX(-55%) rotate(3deg) translateY(-4px); }
-    100% { transform: translateX(-50%) rotate(-3deg); }
-}
-
-/* Dance into next page */
-.weeknd-dancer.exit{
-    animation: danceOut 1.2s ease-in forwards;
-}
-
-@keyframes danceOut{
-    to{
-        transform: translateX(120vw) rotate(15deg) scale(0.8);
         opacity: 0;
     }
 }
@@ -415,13 +344,19 @@ body.scroll-mode #page4{
         font-size: 2.4rem;
     }
 
-    .cross-hint{
-        font-size: 1.1rem;
+    .neon-hint{
+        font-size: 1.05rem;
     }
 
-    .cross-container{
-        height: 330px;
-        max-height: 44vh;
+    .neon-progress{
+        font-size: 1.05rem;
+        letter-spacing: 8px;
+    }
+
+    .neon-bar{
+        width: 56px;
+        height: 102px;
+        font-size: 1.8rem;
     }
 
     .two-column {
