@@ -43,7 +43,7 @@ html, body {
 
 /* ---------------- PAGE 0 ---------------- */
 .volume-page {
-    background: url("weeknd-music.jpg") no-repeat center center/cover;
+    background: url("background.jpg") no-repeat center center/cover;
     color: white;
 }
 
@@ -69,6 +69,12 @@ html, body {
 .big-title {
     font-size: 5rem;
     margin-bottom: 10px;
+}
+
+/* Change 2: Slightly bigger subtitle */
+.invite-subtitle{
+    font-size: 1.55rem;
+    margin-top: 2px;
 }
 
 /* ---------------- NEON PUZZLE ---------------- */
@@ -235,25 +241,104 @@ html, body {
 }
 
 /* ---------------- PAGE 3 SPECIFIC ---------------- */
+/* Change 3: Bold tagline */
+.tagline {
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0.95;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.3px;
+}
+
+/* Change 3: Slightly bigger Dress Code title */
+.dress-title{
+    font-size: 1.65rem;
+}
+
+/* Change 3: Highlight box with black outline */
 .highlight-box {
-    background-color: #d6d6d6;
-    padding: 10px 15px;
-    border-radius: 5px;
+    background-color: rgba(0,0,0,0.06);
+    padding: 14px 16px;
+    border-radius: 14px;
     display: inline-block;
-    margin: 10px 0 14px;
+    margin: 12px 0 14px;
+    border: 1px solid rgba(0,0,0,0.55);
 }
 
 .dress-list {
     padding-left: 20px;
+    line-height: 1.8;
 }
 
 .dress-list li {
     margin-bottom: 8px;
 }
 
+.scroll-note{
+    margin-top: 18px;
+}
+
 /* ---------------- CONTACT PAGE ---------------- */
 .big-contact {
-    font-size: 3rem;
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+/* trilogy-like contact lines */
+.contact-lines{
+    margin-top: 10px;
+}
+
+.contact-line{
+    display: grid;
+    grid-template-columns: auto 14px 1fr;
+    column-gap: 8px;
+    align-items: baseline;
+    margin: 10px 0;
+    font-size: 18px;
+    line-height: 1.35;
+}
+
+.contact-line .label,
+.contact-line .colon{
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.contact-line .value{
+    font-weight: 400;
+}
+
+/* Page 4 sticky footer structure */
+#page4{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    min-height: 100vh;
+}
+
+#page4 .page4-content{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 18px;
+}
+
+/* ---------------- FOOTER ---------------- */
+.dark-footer {
+    width: 100%;
+    background: black;
+    color: white;
+    padding: 16px 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.8rem;
+    font-family: Rockwell, "Times New Roman", serif;
+    margin-top: auto;
 }
 
 /* ---------------- BUTTONS ---------------- */
@@ -277,19 +362,6 @@ button.primary{
 }
 button.primary:hover{
     background: #e9e9e9;
-}
-
-/* ---------------- FOOTER ---------------- */
-.dark-footer {
-    width: 100%;
-    background: black;
-    color: white;
-    padding: 15px 0;
-    text-align: center;
-    font-weight: bold;
-    font-size: 2rem;
-    font-family: Rockwell, "Times New Roman", serif;
-    margin-top: 30px;
 }
 
 /* ---------------- SCROLL MODE ---------------- */
@@ -328,6 +400,231 @@ body.scroll-mode #page4{
     padding-bottom: 0;
 }
 
+/* ---------------- QUIZ (Trilogy-style overlay) ---------------- */
+body.quiz-open{
+    overflow: hidden !important;
+}
+
+.quiz-screen{
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    background: rgba(120,120,120,0.92);
+    backdrop-filter: blur(8px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 24px 0;
+}
+
+body.quiz-open .quiz-screen{
+    display: flex;
+}
+
+.quiz-inner{
+    width: min(780px, 92vw);
+    margin: 0 auto;
+    position: relative;
+    padding: 18px 0 60px;
+}
+
+.quiz-back-btn{
+    border: 1px solid rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.10);
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 18px;
+}
+
+.quiz-title{
+    font-size: 26px;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+    color: #fff;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.25);
+}
+
+.quiz-subtitle{
+    opacity: 0.9;
+    margin-bottom: 18px;
+    color: #fff;
+}
+
+.quiz-album{
+    opacity: 0.95;
+    letter-spacing: 1px;
+}
+
+.quiz-form{
+    display: grid;
+    gap: 14px;
+}
+
+.quiz-q{
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+}
+
+.quiz-q h3{
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #fff;
+}
+
+.quiz-name{
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.28);
+    background: rgba(0,0,0,0.15);
+    color: #fff;
+    outline: none;
+    font-size: 16px;
+}
+
+.quiz-name::placeholder{
+    color: rgba(255,255,255,0.75);
+}
+
+.quiz-q label{
+    display: block;
+    padding: 10px 10px;
+    margin: 8px 0;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.18);
+    border: 1px solid rgba(255,255,255,0.18);
+    cursor: pointer;
+    user-select: none;
+    color: rgba(255,255,255,0.95);
+}
+
+.quiz-q input[type="radio"]{
+    margin-right: 10px;
+    transform: translateY(1px);
+}
+
+.quiz-finish-btn{
+    margin-top: 4px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.24);
+    background: rgba(255,255,255,0.16);
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.quiz-finish-btn:active{ transform: scale(0.99); }
+
+.quiz-result{
+    display: none;
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.22);
+    background: rgba(0,0,0,0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-result-inner h2{
+    font-size: 20px;
+    margin-bottom: 6px;
+    color: #fff;
+}
+
+.fade-soft{
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 700ms ease, transform 700ms ease;
+}
+.fade-soft.show{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.result-cover{
+    width: min(360px, 86vw);
+    margin-top: 14px;
+    border-radius: 18px;
+    display: none;
+    border: 1px solid rgba(255,255,255,0.18);
+}
+
+.result-cover.show{ display:block; }
+
+.result-blurb{
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.95);
+    opacity: 0.95;
+}
+
+.quiz-result-actions{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+
+.quiz-retry-btn,
+.quiz-close-btn{
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    cursor: pointer;
+}
+
+.quiz-overlay{
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.18), rgba(0,0,0,0.0) 60%);
+    transition: opacity 0.5s ease;
+}
+
+.quiz-overlay.on{ opacity: 1; }
+
+/* Quiz Teaser Box on Page 4 */
+.quiz-teaser{
+    margin-top: 26px;
+    padding: 16px 14px;
+    border-radius: 16px;
+    background: rgba(0,0,0,0.10);
+    border: 1px solid rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.quiz-teaser-title{
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.quiz-teaser-sub{
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 12px;
+}
+
+.quiz-play-btn{
+    padding: 12px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,0.18);
+    background: rgba(0,0,0,0.08);
+    cursor: pointer;
+}
+
+.quiz-play-btn:hover{ background: rgba(0,0,0,0.12); }
+
 /* ---------------- MOBILE RESPONSIVE ---------------- */
 @media (max-width: 768px) {
 
@@ -342,6 +639,10 @@ body.scroll-mode #page4{
 
     .big-title {
         font-size: 2.4rem;
+    }
+
+    .invite-subtitle{
+        font-size: 1.25rem;
     }
 
     .neon-hint{
@@ -372,4 +673,15 @@ body.scroll-mode #page4{
     h1 { font-size: 1.3rem; }
     h2 { font-size: 1.1rem; }
     h3 { font-size: 2rem; }
+    
+    .quiz-title{ font-size: 22px; }
+    .quiz-q{ padding: 14px; }
+    .quiz-q label{ padding: 10px; }
+}
+
+@media (max-width: 480px){
+    .contact-line{
+        font-size: 16px;
+        grid-template-columns: auto 12px 1fr;
+    }
 }
