@@ -33,7 +33,7 @@ function initNeonPuzzle(){
   // clear existing bars (if any)
   neonContainer.innerHTML = "";
 
-  // scramble letters so it’s a real puzzle
+  // scramble letters so it's a real puzzle
   const letters = [...correctSequence].sort(() => Math.random() - 0.5);
 
   letters.forEach(letter => {
@@ -70,7 +70,7 @@ function handleTap(bar){
     currentIndex++;
     updateProgress();
 
-    // tiny “success thump”
+    // tiny "success thump"
     neonContainer.classList.add("good");
     setTimeout(()=>neonContainer.classList.remove("good"), 120);
 
@@ -164,3 +164,234 @@ function finishGame(){
   document.getElementById("page2")
     .scrollIntoView({behavior:"smooth"});
 }
+
+/* ===========================
+   QUIZ (STARBOY)
+   =========================== */
+
+const openQuizBtn = document.getElementById("openQuizBtn");
+const quizBackBtn = document.getElementById("quizBackBtn");
+const quizCloseBtn = document.getElementById("quizCloseBtn");
+const quizFinishBtn = document.getElementById("quizFinishBtn");
+const quizRetryBtn = document.getElementById("quizRetryBtn");
+
+const quizScreen = document.getElementById("pageQuiz");
+const quizForm = document.getElementById("quizForm");
+const quizResult = document.getElementById("quizResult");
+const quizResultInner = document.getElementById("quizResultInner");
+const quizOverlay = document.getElementById("quizOverlay");
+const resultCover = document.getElementById("resultCover");
+const resultBlurb = document.getElementById("resultBlurb");
+const guestNameInput = document.getElementById("guestName");
+
+const resultAudio = document.getElementById("resultAudio");
+
+const SONG_KEYS = [
+  "a-lonely-night",
+  "die-for-you",
+  "i-feel-it-coming",
+  "party-monster",
+  "reminder"
+];
+
+const SONG_PRETTY = {
+  "a-lonely-night": "A Lonely Night",
+  "die-for-you": "Die For You",
+  "i-feel-it-coming": "I Feel It Coming",
+  "party-monster": "Party Monster",
+  "reminder": "Reminder"
+};
+
+const SONG_BLURB = {
+  "a-lonely-night": "You're the smooth operator. Confident, cool, and always in control.",
+  "die-for-you": "You're the romantic soul. Deep feelings, loyal heart, and emotional depth.",
+  "i-feel-it-coming": "You're the optimist. Fun, fresh, and always bringing good vibes.",
+  "party-monster": "You're the life of the party. Wild, unpredictable, and unforgettable.",
+  "reminder": "You're the hustler. Focused, ambitious, and always on your grind."
+};
+
+let _inviteWasPlaying = false;
+let _inviteTime = 0;
+let _scrollYBeforeQuiz = 0;
+
+function stopResultAudio() {
+  if (!resultAudio) return;
+  resultAudio.pause();
+  resultAudio.currentTime = 0;
+  resultAudio.removeAttribute("src");
+}
+
+function enterQuizAudioMode() {
+  stopResultAudio();
+
+  if (!music) return;
+  _inviteWasPlaying = !music.paused;
+  _inviteTime = music.currentTime || 0;
+  music.pause();
+}
+
+function exitQuizAudioMode() {
+  stopResultAudio();
+
+  if (!music) return;
+  if (_inviteWasPlaying) {
+    try { music.currentTime = _inviteTime || 0; } catch (e) {}
+    music.play().catch(() => {});
+  }
+}
+
+function resetQuizUI() {
+  quizForm?.reset();
+
+  if (quizResult) quizResult.style.display = "none";
+  if (quizResultInner) {
+    quizResultInner.classList.remove("show");
+    quizResultInner.innerHTML = "";
+  }
+  if (resultCover) {
+    resultCover.classList.remove("show");
+    resultCover.removeAttribute("src");
+  }
+  if (resultBlurb) resultBlurb.textContent = "";
+  quizOverlay?.classList.remove("on");
+}
+
+function openQuiz() {
+  _scrollYBeforeQuiz = window.scrollY || 0;
+  enterQuizAudioMode();
+  resetQuizUI();
+
+  document.body.classList.add("quiz-open");
+  quizScreen?.setAttribute("aria-hidden", "false");
+
+  // snap to top (so the quiz always starts clean)
+  setTimeout(() => {
+    if (quizScreen) quizScreen.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, 0);
+}
+
+function closeQuiz() {
+  document.body.classList.remove("quiz-open");
+  quizScreen?.setAttribute("aria-hidden", "true");
+  stopResultAudio();
+
+  // go back to where they were on the invite
+  setTimeout(() => {
+    window.scrollTo({ top: _scrollYBeforeQuiz, behavior: "auto" });
+  }, 0);
+
+  exitQuizAudioMode();
+}
+
+function computeQuizResult() {
+  if (!quizForm) return { error: "Quiz not found." };
+
+  const guestName = (guestNameInput?.value || "").trim();
+  if (!guestName) return { error: "Enter your name first." };
+
+  const data = new FormData(quizForm);
+
+  for (let i = 1; i <= 6; i++) {
+    if (!data.get("q" + i)) return { error: "Answer all 6 questions first." };
+  }
+
+  const scores = Object.fromEntries(SONG_KEYS.map(k => [k, 0]));
+
+  for (const [key, value] of data.entries()) {
+    if (key === "guestName") continue;
+    if (scores[value] !== undefined) scores[value] += 1;
+  }
+
+  const max = Math.max(...Object.values(scores));
+  const top = Object.keys(scores).filter(k => scores[k] === max);
+  const chosen = top[Math.floor(Math.random() * top.length)];
+
+  return { chosen, guestName };
+}
+
+function playResultSong(songKey) {
+  // Ensure invite music stays stopped while result plays
+  music?.pause();
+
+  if (resultCover) {
+    resultCover.src = `${songKey}.jpg`;
+    resultCover.classList.add("show");
+  }
+
+  if (resultAudio) {
+    resultAudio.pause();
+    resultAudio.currentTime = 0;
+    resultAudio.src = `${songKey}.mp3`;
+    resultAudio.load();
+    resultAudio.play().catch(() => {});
+  }
+}
+
+function revealQuizResult(songKey, guestName) {
+  if (!quizResult || !quizResultInner) return;
+
+  quizResult.style.display = "block";
+
+  quizResultInner.classList.remove("show");
+  quizResultInner.innerHTML = `
+    <h2>${guestName}, you are <span>${SONG_PRETTY[songKey] || "a Mystery Track"}</span></h2>
+  `;
+
+  if (resultBlurb) resultBlurb.textContent = SONG_BLURB[songKey] || "";
+
+  if (quizOverlay) {
+    quizOverlay.classList.add("on");
+    setTimeout(() => quizOverlay.classList.remove("on"), 900);
+  }
+
+  requestAnimationFrame(() => quizResultInner.classList.add("show"));
+
+  playResultSong(songKey);
+
+  // Auto-scroll so the FULL reveal is visible
+  const scrollToFullResult = () => {
+    quizResult.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    setTimeout(() => {
+      window.scrollBy({ top: 140, left: 0, behavior: "smooth" });
+    }, 350);
+
+    setTimeout(() => {
+      window.scrollBy({ top: 80, left: 0, behavior: "smooth" });
+    }, 900);
+  };
+
+  setTimeout(scrollToFullResult, 180);
+
+  if (resultCover) {
+    resultCover.onload = () => setTimeout(scrollToFullResult, 80);
+  }
+}
+
+openQuizBtn?.addEventListener("click", openQuiz);
+quizBackBtn?.addEventListener("click", closeQuiz);
+quizCloseBtn?.addEventListener("click", closeQuiz);
+
+quizRetryBtn?.addEventListener("click", () => {
+  resetQuizUI();
+  stopResultAudio();
+  if (quizScreen) quizScreen.scrollTop = 0;
+});
+
+quizFinishBtn?.addEventListener("click", () => {
+  const res = computeQuizResult();
+
+  if (res.error) {
+    if (!quizResult || !quizResultInner) return;
+    quizResult.style.display = "block";
+    quizResultInner.classList.remove("show");
+    quizResultInner.innerHTML = `<h2>Hold up</h2><p>${res.error}</p>`;
+    if (resultBlurb) resultBlurb.textContent = "";
+    requestAnimationFrame(() => quizResultInner.classList.add("show"));
+    setTimeout(() => quizResult.scrollIntoView({ behavior: "smooth", block: "start" }), 120);
+    return;
+  }
+
+  revealQuizResult(res.chosen, res.guestName);
+});
