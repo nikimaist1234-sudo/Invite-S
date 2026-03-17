@@ -19,11 +19,10 @@
 </section>
 
 <!-- PAGE 1 -->
-<!-- PAGE 1 -->
 <section id="page1" class="page">
     <div class="overlay">
         <h1 class="big-title">You're Invited</h1>
-        <h2>Starboy: Nikita Turns 21</h2>
+        <h2 class="invite-subtitle">X'O Nights: Nikita Turns 21</h2>
 
         <div class="neon-game">
             <p class="neon-hint">
@@ -42,7 +41,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- PAGE 2 -->
 <section id="page2" class="page light-page">
@@ -68,48 +66,167 @@
     <div class="two-column">
         <div class="left">
             <img src="starboy.jpg">
-            <p class="tagline">Neon Lights and Golden Fame</p>
+            <p class="tagline"><strong>Neon Lights and Golden Fame</strong></p>
         </div>
 
         <div class="right text-left">
-            <h1>Dress Code</h1>
+            <h1 class="dress-title">Dress Code</h1>
 
             <div class="highlight-box">
-                You have been chosen to represent Starboy
+                You have been chosen to represent <strong>Starboy</strong>
             </div>
 
             <ul class="dress-list">
-                <li>My Ladies Shine like a Stargirl — Come dressed in Navy Blue.</li>
-                <li>Gentlemen Glow as Starboys — Come dressed in Red.</li>
+                <li>Glow like Starboys & Shine like Stargirl's — Come dressed in Navy Blue.</li>
                 <li>Casual, Comfort over beauty</li>
             </ul>
 
-            <p><strong>Note:</strong> Your top/t-shirt should represent the dress code</p>
+            <p><strong>Note:</strong> Your t-shirt/dress(ladies) should represent the dress code. Having your bottoms/pants represent the dress code is unacceptable. Please and thank you.</p>
+            
+            <br><br>
+            
+            <p class="scroll-note"><strong>Keep scrolling, I'm not done yet :D</strong></p>
         </div>
     </div>
 </section>
 
 <!-- PAGE 4 -->
 <section id="page4" class="page light-page contact-layout">
-    <div class="two-column">
-        <div class="left text-left">
-            <h1 class="big-contact">Contact Details</h1>
-            <p>Contact Nikita for more information</p>
-        </div>
+    <div class="page4-content">
+        <div class="two-column">
+            <div class="left text-left">
+                <h1 class="big-contact">Contact details</h1>
+                <p>Contact Nikita for more information, if you don't want to contact me. Contact my mother-Koshnee for more information</p>
+            </div>
 
-        <div class="right text-left">
-            <h2>Phone Number</h2>
-            <p>0813270172</p>
-            <p><strong>RSVP:</strong> There is none, you have to come</p>
+            <div class="right text-left">
+                <div class="contact-lines">
+                    <p class="contact-line">
+                        <span class="label">Phone Number</span><span class="colon">:</span>
+                        <span class="value">0813270172</span>
+                    </p>
+
+                    <p class="contact-line">
+                        <span class="label">Koshnee's Number</span><span class="colon">:</span>
+                        <span class="value">0832269234</span>
+                    </p>
+
+                    <p class="contact-line">
+                        <span class="label">RSVP</span><span class="colon">:</span>
+                        <span class="value">There is none, you have to come</span>
+                    </p>
+                </div>
+
+                <br /><br />
+
+                <!-- QUIZ BOX -->
+                <div class="quiz-teaser">
+                    <p class="quiz-teaser-title"><strong>Find out what song you are from Starboy</strong></p>
+                    <p class="quiz-teaser-sub">Participate if you want</p>
+                    <button class="quiz-play-btn" id="openQuizBtn" type="button">Click to play</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <footer class="dark-footer">
-        XO till we overdose
-    </footer>
+    <footer class="dark-footer">XO till we overdose.</footer>
+</section>
+
+<!-- QUIZ SCREEN (Overlay) -->
+<section id="pageQuiz" class="quiz-screen" aria-hidden="true">
+    <div class="quiz-inner">
+        <button class="quiz-back-btn" id="quizBackBtn" type="button">← Back to Invite</button>
+        
+        <h1 class="quiz-title">Which Starboy song are you?</h1>
+        <p class="quiz-subtitle">6 quick picks, Soft reveal</p>
+        
+        <form class="quiz-form" id="quizForm">
+            <!-- Name Input -->
+            <div class="quiz-q">
+                <h3>Enter your name</h3>
+                <input type="text" class="quiz-name" id="guestName" placeholder="Your name" required />
+            </div>
+            
+            <!-- Question 1 -->
+            <div class="quiz-q">
+                <h3>1) If you had to pick one guilty-pleasure snack at midnight, what is it?</h3>
+                <label><input type="radio" name="q1" value="party-monster" /> Chips + something spicy</label>
+                <label><input type="radio" name="q1" value="i-feel-it-coming" /> Ice cream straight from the tub</label>
+                <label><input type="radio" name="q1" value="die-for-you" /> Chocolate/Sweets</label>
+                <label><input type="radio" name="q1" value="a-lonely-night" /> A sweet pastry / dessert</label>
+                <label><input type="radio" name="q1" value="reminder" /> None of the above...I'm trying to be healthy</label>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="quiz-q">
+                <h3>2) Which language would you love to learn just for fun?</h3>
+                <label><input type="radio" name="q2" value="die-for-you" /> French</label>
+                <label><input type="radio" name="q2" value="i-feel-it-coming" /> Spanish</label>
+                <label><input type="radio" name="q2" value="a-lonely-night" /> Italian</label>
+                <label><input type="radio" name="q2" value="party-monster" /> Japanese</label>
+                <label><input type="radio" name="q2" value="reminder" /> German</label>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="quiz-q">
+                <h3>3) Favorite genre of music</h3>
+                <label><input type="radio" name="q3" value="i-feel-it-coming" /> Pop</label>
+                <label><input type="radio" name="q3" value="die-for-you" /> R&B</label>
+                <label><input type="radio" name="q3" value="a-lonely-night" /> 80's and 90's</label>
+                <label><input type="radio" name="q3" value="party-monster" /> Rap</label>
+                <label><input type="radio" name="q3" value="reminder" /> Amapiano</label>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="quiz-q">
+                <h3>4) Which one of these places would you like to go to for vacation?</h3>
+                <label><input type="radio" name="q4" value="party-monster" /> Tokyo</label>
+                <label><input type="radio" name="q4" value="reminder" /> New York</label>
+                <label><input type="radio" name="q4" value="i-feel-it-coming" /> Rio</label>
+                <label><input type="radio" name="q4" value="a-lonely-night" /> Paris</label>
+                <label><input type="radio" name="q4" value="die-for-you" /> Italy</label>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="quiz-q">
+                <h3>5) Pick a colour</h3>
+                <label><input type="radio" name="q5" value="reminder" /> Black</label>
+                <label><input type="radio" name="q5" value="a-lonely-night" /> White</label>
+                <label><input type="radio" name="q5" value="party-monster" /> Red</label>
+                <label><input type="radio" name="q5" value="die-for-you" /> Blue</label>
+                <label><input type="radio" name="q5" value="i-feel-it-coming" /> Yellow</label>
+            </div>
+            
+            <!-- Question 6 -->
+            <div class="quiz-q">
+                <h3>6) Pick a Starboy lyric</h3>
+                <label><input type="radio" name="q6" value="a-lonely-night" /> "We're no good for each other"</label>
+                <label><input type="radio" name="q6" value="die-for-you" /> "I'm scared that I'll miss you"</label>
+                <label><input type="radio" name="q6" value="i-feel-it-coming" /> "You've been scared of love, and what it did to you"</label>
+                <label><input type="radio" name="q6" value="party-monster" /> "I just need a girl who gon' understand"</label>
+                <label><input type="radio" name="q6" value="reminder" /> "All I wanna do is make that money and make dope shit"</label>
+            </div>
+            
+            <button type="button" class="quiz-finish-btn" id="quizFinishBtn">Reveal my song</button>
+        </form>
+        
+        <!-- Quiz Result -->
+        <div class="quiz-result" id="quizResult">
+            <div class="quiz-result-inner fade-soft" id="quizResultInner"></div>
+            <img class="result-cover" id="resultCover" alt="Song Cover" />
+            <p class="result-blurb" id="resultBlurb"></p>
+            <div class="quiz-result-actions">
+                <button type="button" class="quiz-retry-btn" id="quizRetryBtn">Try again</button>
+                <button type="button" class="quiz-close-btn" id="quizCloseBtn">Back to invite</button>
+            </div>
+        </div>
+        
+        <div class="quiz-overlay" id="quizOverlay"></div>
+    </div>
 </section>
 
 <audio id="bgMusic" src="Starboy.mp3" preload="auto"></audio>
+<audio id="resultAudio" preload="auto"></audio>
 <script src="script.js"></script>
 </body>
 </html>
