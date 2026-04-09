@@ -4,7 +4,7 @@ const music = document.getElementById("bgMusic");
 const neonContainer = document.getElementById("neonContainer");
 const neonProgress = document.getElementById("neonProgress");
 
-const correctSequence = ["S","T","A","R","B","O","Y"];
+const correctSequence = ["M","O","N","S","T","E","R"];
 let currentIndex = 0;
 let gameFinished = false;
 
