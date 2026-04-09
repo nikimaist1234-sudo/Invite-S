@@ -310,7 +310,7 @@ html, body {
     font-weight: 400;
 }
 
-/* Page 4 sticky footer structure */
+/* ---------------- PAGE 4: STICKY FOOTER STRUCTURE (TRILOGY STYLE) ---------------- */
 #page4{
     display: flex;
     flex-direction: column;
@@ -318,6 +318,7 @@ html, body {
     justify-content: flex-start;
     gap: 0;
     min-height: 100vh;
+    padding: 0; /* Remove padding from page4 - handle in content */
 }
 
 #page4 .page4-content{
@@ -325,20 +326,23 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 40px; /* Add padding here instead */
     padding-bottom: 18px;
 }
 
-/* ---------------- FOOTER ---------------- */
+/* ---------------- FOOTER (TRILOGY STYLE) ---------------- */
 .dark-footer {
-    width: 100%;
-    background: black;
-    color: white;
-    padding: 16px 0;
     text-align: center;
-    font-weight: bold;
-    font-size: 1.8rem;
-    font-family: Rockwell, "Times New Roman", serif;
-    margin-top: auto;
+    padding: 18px 0;
+    background: #111;
+    color: white;
+    width: 100vw; /* Full viewport width */
+    margin-left: calc(-50vw + 50%); /* Counteract any parent constraints */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+    flex-shrink: 0;
 }
 
 /* ---------------- BUTTONS ---------------- */
@@ -673,6 +677,12 @@ body.quiz-open .quiz-screen{
     h1 { font-size: 1.3rem; }
     h2 { font-size: 1.1rem; }
     h3 { font-size: 2rem; }
+    
+    /* Adjust page4 content padding on mobile */
+    #page4 .page4-content{
+        padding: 20px;
+        padding-bottom: 18px;
+    }
     
     .quiz-title{ font-size: 22px; }
     .quiz-q{ padding: 14px; }
